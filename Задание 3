@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class StickGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите начальное количество палочек (1 <= n <= 10^18): ");
+        long n = scanner.nextLong();
+        scanner.close();
+
+        long tanyaSticks = 0;
+        boolean tanyaTurn = true;
+
+        while (n > 0) {
+            long taken;
+            if (n % 2 == 0) {
+            
+                taken = Math.max(n / 2, 1);
+              
+                taken = (n / 2 > 1) ? n / 2 : 1;
+            } else {
+          
+                taken = 1;
+            }
+
+            if (tanyaTurn) {
+                tanyaSticks += taken;
+            }
+
+            n -= taken;
+            tanyaTurn = !tanyaTurn; 
+        }
+
+        System.out.println("Таня соберет " + tanyaSticks + " палочек.");
+    }
+}
