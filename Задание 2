@@ -1,0 +1,52 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class SmartMemoryCell {
+    private static final int CAPACITY = 3;
+    private static int[] memory = new int[CAPACITY];
+    private static int size = 0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Вводите числа по одному (для выхода введите 'q'):");
+        
+        while (true) {
+            String input = scanner.next();
+            if (input.equalsIgnoreCase("q")) {
+                break;
+            }
+            
+            try {
+                int number = Integer.parseInt(input);
+                processNumber(number);
+                System.out.println("Текущее состояние памяти: " + Arrays.toString(memory));
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: введите целое число или 'q' для выхода");
+            }
+        }
+        
+        System.out.println("Финальное состояние памяти: " + Arrays.toString(memory));
+        scanner.close();
+    }
+    
+    private static void processNumber(int number) {
+        if (size < CAPACITY) {
+
+            memory[size] = number;
+            size++;
+        } else {
+
+            int minIndex = 0;
+            for (int i = 1; i < CAPACITY; i++) {
+                if (memory[i] < memory[minIndex]) {
+                    minIndex = i;
+                }
+            }
+            
+            if (number > memory[minIndex]) {
+                memory[minIndex] = number;
+            }
+        }
+    }
+}
